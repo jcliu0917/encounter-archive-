@@ -35,14 +35,7 @@ body {
 
 /* 🖼 SMALL IMAGE (right top floating) */
 .small-img {
-    animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%   { transform: translateY(-50%) translateX(0px); }
-  50%  { transform: translateY(-55%) translateX(-5px); }
-  100% { transform: translateY(-50%) translateX(0px); }
-}
+ 
   position: fixed;
 
   width: 200px;
