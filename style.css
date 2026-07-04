@@ -35,22 +35,34 @@ body {
 
 /* 🖼 SMALL IMAGE (right top floating) */
 .small-img {
-  position: fixed;
-  top: 80px;
-  right: 80px;
+    animation: float 6s ease-in-out infinite;
+}
 
-  width: 180px;
-  height: 140px;
+@keyframes float {
+  0%   { transform: translateY(-50%) translateX(0px); }
+  50%  { transform: translateY(-55%) translateX(-5px); }
+  100% { transform: translateY(-50%) translateX(0px); }
+}
+  position: fixed;
+
+  width: 200px;
+  height: 150px;
 
   background-image: url("small.jpg");
   background-size: cover;
   background-position: center;
 
   z-index: 2;
+  opacity: 0.95;
 
-  opacity: 0.9;
+  right: 80px;
 
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  /* ⭐关键：从 top 改成 vertical center + offset */
+  top: 55%;
+
+  transform: translateY(-50%);
+
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
 }
 
 /* 🧠 TEXT LAYER */
