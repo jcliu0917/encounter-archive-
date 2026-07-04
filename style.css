@@ -1,0 +1,98 @@
+body {
+  margin: 0;
+  font-family: monospace;
+  background: #f4f1ea; /* 米白色 */
+}
+
+/* MAIN LAYOUT */
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+/* LEFT SIDE (editorial text) */
+.left {
+  width: 45%;
+  padding: 80px;
+  box-sizing: border-box;
+  background: #f4f1ea;
+}
+
+.top {
+  font-size: 10px;
+  letter-spacing: 2px;
+  opacity: 0.6;
+  margin-bottom: 80px;
+}
+
+.title {
+  font-size: 22px;
+  margin-bottom: 40px;
+}
+
+.text {
+  font-size: 12px;
+  opacity: 0.7;
+  line-height: 1.6;
+  margin-bottom: 50px;
+}
+
+.enter {
+  border-bottom: 1px solid #000;
+  text-decoration: none;
+  color: black;
+  font-size: 12px;
+}
+
+/* RIGHT SIDE */
+.right {
+  width: 55%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* MAIN IMAGE (WATER) */
+.water {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  /* 👇 这里你放水波图片 */
+  background-image: url("water.jpg");
+
+  background-size: cover;
+  background-position: center;
+
+  opacity: 0.85;
+  filter: contrast(1.1) brightness(0.9);
+}
+
+/* overlay film effect */
+.water::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to left, rgba(244,241,234,0.2), rgba(0,0,0,0.3));
+  mix-blend-mode: multiply;
+}
+
+/* SMALL IMAGE */
+.small-img {
+  position: absolute;
+  width: 180px;
+  height: 140px;
+
+  /* 👇 这里放右上角小图 */
+  background-image: url("small.jpg");
+
+  background-size: cover;
+  background-position: center;
+
+  top: 80px;
+  right: 80px;
+
+  opacity: 0.9;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
