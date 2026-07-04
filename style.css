@@ -1,36 +1,61 @@
 body {
   margin: 0;
   font-family: monospace;
-  background: #f4f1ea; /* 米白色 */
+  color: white;
+  overflow: hidden;
 }
 
-/* MAIN LAYOUT */
-.layout {
-  display: flex;
-  height: 100vh;
+/* FULLSCREEN BACKGROUND */
+.bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-image: url("water.jpg");
+  background-size: cover;
+  background-position: center;
+
+  filter: contrast(1.05) brightness(0.85);
 }
 
-/* LEFT SIDE (editorial text) */
-.left {
-  width: 45%;
+/* DARK OVERLAY (让字更清晰 + 更艺术) */
+.bg::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    rgba(0,0,0,0.1),
+    rgba(0,0,0,0.6)
+  );
+}
+
+/* TEXT LAYER */
+.content {
+  position: relative;
+  z-index: 2;
+
   padding: 80px;
-  box-sizing: border-box;
-  background: #f4f1ea;
+  max-width: 500px;
 }
 
-.top {
+.label {
   font-size: 10px;
+  opacity: 0.5;
   letter-spacing: 2px;
-  opacity: 0.6;
   margin-bottom: 80px;
 }
 
 .title {
   font-size: 22px;
-  margin-bottom: 40px;
+  line-height: 1.2;
+  margin-bottom: 30px;
 }
 
-.text {
+.desc {
   font-size: 12px;
   opacity: 0.7;
   line-height: 1.6;
@@ -38,61 +63,8 @@ body {
 }
 
 .enter {
-  border-bottom: 1px solid #000;
+  color: white;
   text-decoration: none;
-  color: black;
+  border-bottom: 1px solid rgba(255,255,255,0.4);
   font-size: 12px;
-}
-
-/* RIGHT SIDE */
-.right {
-  width: 55%;
-  position: relative;
-  overflow: hidden;
-}
-
-/* MAIN IMAGE (WATER) */
-.water {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-
-  /* 👇 这里你放水波图片 */
-  background-image: url("water.jpg");
-
-  background-size: cover;
-  background-position: center;
-
-  opacity: 0.85;
-  filter: contrast(1.1) brightness(0.9);
-}
-
-/* overlay film effect */
-.water::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to left, rgba(244,241,234,0.2), rgba(0,0,0,0.3));
-  mix-blend-mode: multiply;
-}
-
-/* SMALL IMAGE */
-.small-img {
-  position: absolute;
-  width: 180px;
-  height: 140px;
-
-  /* 👇 这里放右上角小图 */
-  background-image: url("small.jpg");
-
-  background-size: cover;
-  background-position: center;
-
-  top: 80px;
-  right: 80px;
-
-  opacity: 0.9;
-
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
