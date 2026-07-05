@@ -40,3 +40,20 @@
 
 </body>
 </html>
+<script>
+const water = document.querySelector(".water-bg");
+
+let t = 0;
+
+function animate() {
+  t += 0.003;
+
+  const brightness = 1 + Math.sin(t) * 0.03;
+
+  water.style.filter = `brightness(${brightness})`;
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script> 
