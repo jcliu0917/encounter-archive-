@@ -1,3 +1,4 @@
+console.log("water animation running");
 <script>
 const water = document.querySelector(".water-bg");
 
