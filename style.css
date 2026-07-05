@@ -35,27 +35,16 @@ body {
 
 /* 🖼 SMALL IMAGE (right top floating) */
 .small-img {
- 
   position: fixed;
+  top: 200px;
+  right: 80px;
 
   width: 200px;
   height: 150px;
 
-  background-image: url("small.jpg");
-  background-size: cover;
-  background-position: center;
+  background: red !important;
 
-  z-index: 2;
-  opacity: 0.95;
-
-  right: 80px;
-
-  /* ⭐关键：从 top 改成 vertical center + offset */
-  top: 55%;
-
-  transform: translateY(-50%);
-
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  z-index: 9999;
 }
 
 /* 🧠 TEXT LAYER */
