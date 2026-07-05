@@ -49,23 +49,6 @@ body {
   z-index: 9999;
 }
 
-.water-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  width: 100vw;
-  height: 100vh;
-
-  background-image: url("water.jpg");
-  background-size: cover;
-  background-position: center;
-
-  filter: brightness(1);
-  transition: filter 0.2s ease-out;
-
-  z-index: -1;
-}
 
 /* 🧠 TEXT LAYER */
 .content {
