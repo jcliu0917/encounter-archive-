@@ -1,21 +1,32 @@
-<script src="script.js"></script> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Encounter Archive</title>
+
 <link rel="stylesheet" href="style.css">
+
+<style>
+/* fallback ensure text is visible even if css fails */
+body {
+  margin: 0;
+  font-family: monospace;
+  color: black;
+  overflow: hidden;
+}
+</style>
 
 </head>
 
 <body>
 
-<!-- BACKGROUND IMAGE -->
+<!-- 🌊 BACKGROUND (only one system) -->
 <div class="bg"></div>
+
+<!-- 🖼 FLOATING IMAGE -->
 <div class="small-img"></div>
-<div class="water-bg"></div>
-  
-<!-- TEXT OVERLAY -->
+
+<!-- 🧠 CONTENT -->
 <div class="content">
 
   <div class="label">ENCOUNTER ARCHIVE</div>
@@ -28,10 +39,10 @@
   <div class="desc">
     this is not a portfolio<br>
     this is not documentation<br>
-    this is not a collection of works<br><br>
+    this is not a collection<br><br>
 
     it is an encounter archive<br>
-    built through perception, residue, and attention drift
+    built through perception and residue
   </div>
 
   <a class="enter" href="system.html">
@@ -40,22 +51,43 @@
 
 </div>
 
-</body>
-</html>
+<!-- 🌊 ANIMATION SYSTEM -->
 <script>
-const water = document.querySelector(".water-bg");
+const bg = document.querySelector(".bg");
 
 let t = 0;
+
+// mouse influence
+let mx = 0;
+let my = 0;
+
+document.addEventListener("mousemove", (e) => {
+  mx = e.clientX / window.innerWidth;
+  my = e.clientY / window.innerHeight;
+});
 
 function animate() {
   t += 0.003;
 
-  const brightness = 1 + Math.sin(t) * 0.03;
+  // 🌊 base breathing
+  let baseBrightness = 0.78 + Math.sin(t) * 0.06;
 
-  water.style.filter = `brightness(${brightness})`;
+  // 🌫 mouse influence (very subtle)
+  let mouseBoost = (mx - 0.5) * 0.05;
+
+  let brightness = baseBrightness + mouseBoost;
+  let contrast = 1.05 + Math.sin(t * 0.7) * 0.03;
+
+  bg.style.filter = `
+    brightness(${brightness})
+    contrast(${contrast})
+  `;
 
   requestAnimationFrame(animate);
 }
 
 animate();
-</script> 
+</script>
+
+</body>
+</html>
