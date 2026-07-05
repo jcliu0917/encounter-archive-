@@ -1,39 +1,18 @@
-console.log("water animation running");
 <script>
-const water = document.querySelector(".water-bg");
+const bg = document.querySelector(".bg");
 
-let targetBrightness = 1;
-let currentBrightness = 1;
-
-// 鼠标影响“扰动强度”
-let mouseX = 0;
-let mouseY = 0;
-
-document.addEventListener("mousemove", (e) => {
-  mouseX = e.clientX / window.innerWidth;  // 0~1
-  mouseY = e.clientY / window.innerHeight;
-});
-
-// 呼吸周期（基础）
 let t = 0;
 
 function animate() {
-  // 鼠标影响振幅（不是直接控制）
-  const amplitude = 0.03 + mouseY * 0.05; // 越往下越“湿润感”
+  t += 0.003;
 
-  // 鼠标影响速度（轻微）
-  const speed = 0.002 + mouseX * 0.004;
+  // 🌊 呼吸感：亮度缓慢正弦变化
+  const brightness = 0.75 + Math.sin(t) * 0.08;
 
-  t += speed;
+  // 🌫️ 轻微对比波动（让水更“活”）
+  const contrast = 1.05 + Math.sin(t * 0.7) * 0.03;
 
-  targetBrightness =
-    1 +
-    Math.sin(t) * amplitude;
-
-  // easing（滞后感）
-  currentBrightness += (targetBrightness - currentBrightness) * 0.08;
-
-  water.style.filter = `brightness(${currentBrightness})`;
+  bg.style.filter = `brightness(${brightness}) contrast(${contrast})`;
 
   requestAnimationFrame(animate);
 }
