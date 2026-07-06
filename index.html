@@ -45,38 +45,45 @@
 <script>
 const bg = document.querySelector(".bg");
 
-let mouseX = 0;
-let mouseY = 0;
+let mx = 0;
+let my = 0;
 
-let currentX = 0;
-let currentY = 0;
+let cx = 0;
+let cy = 0;
 
-// 🌊 鼠标位置
 document.addEventListener("mousemove", (e) => {
-  mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-  mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+  mx = (e.clientX / window.innerWidth - 0.5) * 2;
+  my = (e.clientY / window.innerHeight - 0.5) * 2;
 });
 
 function animate() {
 
-  // 🌊 更强的“水惯性”
-  currentX += (mouseX - currentX) * 0.04;
-  currentY += (mouseY - currentY) * 0.04;
+  // 🌊 更慢的水粘性（关键）
+  cx += (mx - cx) * 0.03;
+  cy += (my - cy) * 0.03;
 
-  // 🌊 主体位移（整体水面被推）
-  const baseX = currentX * 20;
-  const baseY = currentY * 20;
+  // 🌊 整体漂移（很轻）
+  const moveX = cx * 10;
+  const moveY = cy * 10;
 
-  // 🌊 鼠标“压强”（核心新增）
-  const pressure = Math.abs(mouseX) + Math.abs(mouseY);
+  // 🌊 核心：局部“水压”
+  const pressure = Math.sqrt(cx * cx + cy * cy);
 
-  // 🌊 微扭曲（让水“活起来”）
-  const wobbleX = Math.sin(Date.now() * 0.002) * pressure * 3;
-  const wobbleY = Math.cos(Date.now() * 0.0025) * pressure * 3;
+  // 🌊 模拟水面折射（关键升级）
+  const blur = pressure * 2.5;
+  const wave = pressure * 6;
 
   bg.style.transform = `
-    scale(1.10)
-    translate(${baseX + wobbleX}px, ${baseY + wobbleY}px)
+    scale(1.12)
+    translate(${moveX}px, ${moveY}px)
+  `;
+
+  // 🌊 关键：用 filter 假装“折射”
+  bg.style.filter = `
+    brightness(0.85)
+    contrast(1.15)
+    blur(${blur}px)
+    saturate(${1 + pressure * 0.2})
   `;
 
   requestAnimationFrame(animate);
