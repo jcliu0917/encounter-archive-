@@ -43,7 +43,7 @@
 
 <!-- 🌊 JAVASCRIPT (fluid system) -->
 <script>
-const bg = document.querySelector(".bg");
+const displacement = document.querySelector("feDisplacementMap");
 
 let mx = 0;
 let my = 0;
@@ -58,39 +58,44 @@ document.addEventListener("mousemove", (e) => {
 
 function animate() {
 
-  // 🌊 更慢的水粘性（关键）
-  cx += (mx - cx) * 0.03;
-  cy += (my - cy) * 0.03;
+  // 🌊 慢惯性（水的粘性）
+  cx += (mx - cx) * 0.05;
+  cy += (my - cy) * 0.05;
 
-  // 🌊 整体漂移（很轻）
-  const moveX = cx * 10;
-  const moveY = cy * 10;
-
-  // 🌊 核心：局部“水压”
+  // 🌊 核心：水压 = 扭曲强度
   const pressure = Math.sqrt(cx * cx + cy * cy);
 
-  // 🌊 模拟水面折射（关键升级）
-  const blur = pressure * 2.5;
-  const wave = pressure * 6;
+  // 🌊 关键：控制“折射强度”
+  const scale = 0 + pressure * 40;
 
-  bg.style.transform = `
-    scale(1.12)
-    translate(${moveX}px, ${moveY}px)
-  `;
-
-  // 🌊 关键：用 filter 假装“折射”
-  bg.style.filter = `
-    brightness(0.85)
-    contrast(1.15)
-    blur(${blur}px)
-    saturate(${1 + pressure * 0.2})
-  `;
+  displacement.setAttribute("scale", scale);
 
   requestAnimationFrame(animate);
 }
 
 animate();
 </script>
+
+
+<svg style="position:absolute; width:0; height:0;">
+  <filter id="water-distortion">
+    <feTurbulence
+      type="fractalNoise"
+      baseFrequency="0.01"
+      numOctaves="2"
+      seed="2"
+      result="noise">
+    </feTurbulence>
+
+    <feDisplacementMap
+      in="SourceGraphic"
+      in2="noise"
+      scale="0"
+      xChannelSelector="R"
+      yChannelSelector="G">
+    </feDisplacementMap>
+  </filter>
+</svg>
 
 </body>
 </html>
