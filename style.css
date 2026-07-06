@@ -1,39 +1,36 @@
 body {
   margin: 0;
   font-family: monospace;
-  color: white;
+  color: black;
   overflow: hidden;
 }
 
-/* 🌊 MAIN BACKGROUND (water.jpg) */
+/* 🌊 MAIN WATER LAYER */
 .bg {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -3;
+
+  width: 110vw;
+  height: 110vh;
 
   background-image: url("water.jpg");
   background-size: cover;
   background-position: center;
 
-  filter: brightness(0.8) contrast(1.1);
+  /* 🌊 关键：让 JS transform 生效更自然 */
+  will-change: transform;
+
+  /* 基础视觉（你原来的感觉保留） */
+  filter: brightness(0.85) contrast(1.1);
+
+  z-index: -2;
 }
 
-/* dark atmospheric overlay */
-.bg::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center,
-    rgba(0,0,0,0.1),
-    rgba(0,0,0,0.6)
-  );
-}
+/* ❌ 删除原来的 .bg::after（先不要 overlay，会干扰水感） */
 
-/* 🖼 SMALL IMAGE (right top floating) */
+
+/* 🖼 FLOATING IMAGE */
 .small-img {
   position: fixed;
   top: 200px;
@@ -46,14 +43,13 @@ body {
   background-size: cover;
   background-position: center;
 
-  z-index: 9999;
+  z-index: 10;
 }
-
 
 /* 🧠 TEXT LAYER */
 .content {
   position: relative;
-  z-index: 3;
+  z-index: 5;
 
   padding: 80px;
   max-width: 500px;
@@ -61,7 +57,7 @@ body {
 
 .label {
   font-size: 10px;
-  opacity: 0.5;
+  opacity: 0.6;
   letter-spacing: 2px;
   margin-bottom: 80px;
 }
@@ -73,7 +69,7 @@ body {
 
 .desc {
   font-size: 12px;
-  opacity: 0.7;
+  opacity: 0.75;
   line-height: 1.6;
   margin-bottom: 40px;
 }
@@ -82,7 +78,4 @@ body {
   color: white;
   text-decoration: none;
   border-bottom: 1px solid white;
-}
-body {
-  color: black;
 }
