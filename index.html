@@ -51,26 +51,32 @@ let mouseY = 0;
 let currentX = 0;
 let currentY = 0;
 
-// 🎯 mouse input
+// 🌊 鼠标位置
 document.addEventListener("mousemove", (e) => {
   mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
   mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
 });
 
-// 🌊 animation loop
 function animate() {
 
-  // inertia (water viscosity)
-  currentX += (mouseX - currentX) * 0.06;
-  currentY += (mouseY - currentY) * 0.06;
+  // 🌊 更强的“水惯性”
+  currentX += (mouseX - currentX) * 0.04;
+  currentY += (mouseY - currentY) * 0.04;
 
-  // displacement
-  const moveX = currentX * 25;
-  const moveY = currentY * 25;
+  // 🌊 主体位移（整体水面被推）
+  const baseX = currentX * 20;
+  const baseY = currentY * 20;
+
+  // 🌊 鼠标“压强”（核心新增）
+  const pressure = Math.abs(mouseX) + Math.abs(mouseY);
+
+  // 🌊 微扭曲（让水“活起来”）
+  const wobbleX = Math.sin(Date.now() * 0.002) * pressure * 3;
+  const wobbleY = Math.cos(Date.now() * 0.0025) * pressure * 3;
 
   bg.style.transform = `
-    scale(1.08)
-    translate(${moveX}px, ${moveY}px)
+    scale(1.10)
+    translate(${baseX + wobbleX}px, ${baseY + wobbleY}px)
   `;
 
   requestAnimationFrame(animate);
