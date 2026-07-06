@@ -1,33 +1,20 @@
-<script src="script.js"></script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Encounter Archive</title>
 
+<!-- 🌊 CSS -->
 <link rel="stylesheet" href="style.css">
-
-<style>
-/* fallback ensure text is visible even if css fails */
-body {
-  margin: 0;
-  font-family: monospace;
-  color: black;
-  overflow: hidden;
-}
-</style>
 
 </head>
 
 <body>
 
-<!-- 🌊 BACKGROUND (only one system) -->
+<!-- 🌊 WATER BACKGROUND -->
 <div class="bg"></div>
 
-<!-- 🖼 FLOATING IMAGE -->
-<div class="small-img"></div>
-
-<!-- 🧠 CONTENT -->
+<!-- 🧠 TEXT CONTENT -->
 <div class="content">
 
   <div class="label">ENCOUNTER ARCHIVE</div>
@@ -40,10 +27,9 @@ body {
   <div class="desc">
     this is not a portfolio<br>
     this is not documentation<br>
-    this is not a collection<br><br>
+    it is an encounter archive<br><br>
 
-    it is an encounter archive<br>
-    built through perception and residue
+    built through perception, residue, and drift
   </div>
 
   <a class="enter" href="system.html">
@@ -52,37 +38,39 @@ body {
 
 </div>
 
-<!-- 🌊 ANIMATION SYSTEM -->
+<!-- 🌊 FLOATING IMAGE -->
+<div class="small-img"></div>
+
+<!-- 🌊 JAVASCRIPT (fluid system) -->
 <script>
-  console.log("🔥 JS is running");
 const bg = document.querySelector(".bg");
 
-let t = 0;
+let mouseX = 0;
+let mouseY = 0;
 
-// mouse influence
-let mx = 0;
-let my = 0;
+let currentX = 0;
+let currentY = 0;
 
+// 🎯 mouse input
 document.addEventListener("mousemove", (e) => {
-  mx = e.clientX / window.innerWidth;
-  my = e.clientY / window.innerHeight;
+  mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+  mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
 });
 
+// 🌊 animation loop
 function animate() {
-  t += 0.003;
 
-  // 🌊 base breathing
-  let baseBrightness = 0.78 + Math.sin(t) * 0.06;
+  // inertia (water viscosity)
+  currentX += (mouseX - currentX) * 0.06;
+  currentY += (mouseY - currentY) * 0.06;
 
-  // 🌫 mouse influence (very subtle)
-  let mouseBoost = (mx - 0.5) * 0.05;
+  // displacement
+  const moveX = currentX * 25;
+  const moveY = currentY * 25;
 
-  let brightness = baseBrightness + mouseBoost;
-  let contrast = 1.05 + Math.sin(t * 0.7) * 0.03;
-
-  bg.style.filter = `
-    brightness(${brightness})
-    contrast(${contrast})
+  bg.style.transform = `
+    scale(1.08)
+    translate(${moveX}px, ${moveY}px)
   `;
 
   requestAnimationFrame(animate);
